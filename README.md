@@ -33,10 +33,8 @@ git clone https://github.com/HosHaggag/instabug-task-source.git
 ```
 
 2. Build the Docker image:
-
-![Docker Image](Screenshots/docker-image-screenshot.png)
-
-
+```
+![Docker Image](/Screenshots/docker-image-screenshot.png)
 ```
 docker build -t Instabug-internship .
 ```
@@ -49,6 +47,7 @@ docker build -t Instabug-internship .
 2. Create a new Jenkins pipeline job.
 3. Configure the job to use the provided Jenkinsfile.
 4. Run the pipeline and monitor the build status.
+![Jenkins Pipeline](/Screenshots/jenkins-job-screenshot.png)
 
 ### Docker Compose
 
