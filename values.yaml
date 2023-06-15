@@ -1,0 +1,21 @@
+replicaCount: 2
+
+image:
+  repository: hossamibraheem/instabug-internship-task
+  tag: latest
+
+mysql:
+  enabled: true
+  image: mysql:8.0
+  rootPassword: root_password
+  database: internship
+
+service:
+  type: LoadBalancer
+  port: 9090
+
+autoscaler:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50

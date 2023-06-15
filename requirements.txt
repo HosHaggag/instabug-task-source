@@ -1,0 +1,17 @@
+Infrastructure Internship Challenge 2023 
+
+
+Check this golang project in the attachment and create the following:
+- Dockerfile that build the app and try to make it as lightweight as you can.
+- Pipeline job (jenkinsfile) to build the app using dockerfile and reports if any errors happened in the build. The output of the build step should be a docker image pushed to dockerhub or any docker repo you want. 
+- Docker compose file that contains both application and mysql database so you can run the app locally.
+- Helm manifests for kubernetes to deploy the app using them on kubernetes with adding config to support high availability and volume persistence and exposing service to the public (you can use minikube to test).
+
+** As a bonus you can:
+- Add autoscaling manifest for number of replicas.
+- Add argocd app that points to helm manifests to apply gitops concept.
+- Secure your containers as much as you can.
+- Fix a bug in the code that would appear when you test the api (all needed information of api is in the readme file)
+
+→ Reply to the email with a link to your github repo containing the Jenkinsfile,  Dockerfile, docker compose and kubernetes helm chart and documentation and the source code.
+Screenshots of the running app on local are preferred.

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "my-go-app.fullname" . }}
+  labels:
+    app: my-go-app
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: my-go-app
+  template:
+    metadata:
+      labels:
+        app: my-go-app
+    spec:
+      containers:
+        - name: my-go-app
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          ports:
+            - containerPort: 9090
+          env:
+            - name: MYSQL_USER
+              value: user
+            - name: MYSQL_PASS
+              value: password
+            - name: MYSQL_HOST
+              value: {{ template "my-go-app.mysql.fullname" . }}
+            - name: MYSQL_PORT
+              value: "3306"
+  autoscaler:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 50
