@@ -1,44 +1,44 @@
 pipeline {
     agent any
 
+      environment {
+        //once you sign up for Docker hub, use that user_id here
+        registry = "haggagdev/instabug-task"
+        //- update your credentials ID after creating credentials for connecting to Docker Hub
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub_id')
+        dockerImage = ''
+    }
+
     stages {
-        stage('Build') {
+        stage('Checkout Repo') {
             steps {
-                // Checkout your source code from version control system (e.g., Git)
-                git 'https://github.com/0x70ssAM/instabug-internship-task'
-
-                // Build the Docker image using the Dockerfile
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/HosHaggag/instabug-task-source']])
+            }
+        }
+        
+        stage('Building Docker image') {
+            steps{
                 script {
-                    def imageName = "hossamibraheem/instabug-internship-task"
-                    def dockerTag = "latest"
-                    docker.build("${imageName}:${dockerTag}", "-f Dockerfile .")
+
+                     dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 }
             }
         }
 
-        stage('Publish') {
-            steps {
-                // Log in to the Docker registry (e.g., Docker Hub)
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-                    sh "docker login -u ${env.DOCKER_USERNAME} -p ${env.DOCKER_PASSWORD}"
-                }
-                
-                // Push the Docker image to the registry
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub-credentials') {
-                        // Push the Docker image to Docker Hub
-                        def dockerImage = docker.image("${imageName}:${dockerTag}")
-                        dockerImage.push()
-                    }
-                }
-            }
-        }
+        stage('Login') {
 
-        stage('Test') {
-            steps {
-                error("Tests failed")
-            }
-        }
+			steps {
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+			}
+		}
+
+		stage('Push') {
+
+			steps {
+				sh 'docker push $registry'
+			}
+		}
+
     }
 
     post {

@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  repository: hossamibraheem/instabug-internship-task
+  repository: haggagdev/instabug-task
   tag: latest
 
 mysql:

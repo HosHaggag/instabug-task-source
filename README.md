@@ -28,19 +28,17 @@ This project contains a Golang application that needs to be built, deployed, and
 1. Clone the repository:
 
 ```
-git clone <repository-url>
+git clone https://github.com/HosHaggag/instabug-task-source.git
+```
 ```
 
-2. Change into the project directory:
+2. Build the Docker image:
+
+![Docker Image](Screenshots/docker-image-screenshot.png)
+
 
 ```
-cd <project-directory>
-```
-
-3. Build the Docker image:
-
-```
-docker build -t <image-name> .
+docker build -t Instabug-internship .
 ```
 
 ## Usage
