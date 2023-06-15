@@ -9,7 +9,7 @@ spec:
     namespace: default
   project: default
   source:
-    repoURL: 'https://github.com/0x70ssAM/instabug-internship-task'
+    repoURL: 'https://github.com/HosHaggag/instabug-task-source'
     targetRevision: HEAD
     path: helm/my-go-app
     helm:
